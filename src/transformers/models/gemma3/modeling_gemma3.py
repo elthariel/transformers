@@ -652,7 +652,7 @@ class Gemma3TextModel(Gemma3PreTrainedModel):
         )
         use_cache = use_cache if use_cache is not None else self.config.use_cache
 
-        if (input_ids is None) ^ (inputs_embeds is not None):
+        if (input_ids is not None) and (inputs_embeds is not None):
             raise ValueError("You must specify exactly one of input_ids or inputs_embeds")
 
         if self.gradient_checkpointing and self.training and use_cache:
@@ -1260,7 +1260,7 @@ class Gemma3ForConditionalGeneration(Gemma3PreTrainedModel, GenerationMixin):
         ```
         """
 
-        if (input_ids is None) ^ (inputs_embeds is not None):
+        if (input_ids is not None) and (inputs_embeds is not None):
             raise ValueError("You must specify exactly one of input_ids or inputs_embeds")
 
         output_attentions = output_attentions if output_attentions is not None else self.config.output_attentions
